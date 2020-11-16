@@ -138,19 +138,49 @@ values(5, 75, 10105, '6/18/21', '6/19/21',
 'detention details', 'other details i guess')
 go
 
-
+-- create  guardians
 INSERT GUARDIAN VALUES
 ( 101, 'VIC CON', '646-824-5892' )
 
 INSERT GUARDIAN VALUES
 ( 102, 'SIN CON', '646-824-1717' )
 
-INSERT GUARDIAN_MESSAGE VALUES
-( 1212, 'missing hw', 101  )
+INSERT GUARDIAN VALUES
+( 103, 'Fon Boh', '646-131-4811' )
 
--- We would want to make it work
+INSERT GUARDIAN VALUES
+( 104, 'Sasha Boh', '646-131-8929' )
+
+-- connect these two to the student 10101
+INSERT STUDENT_GUARDIAN VALUES
+    ( 101, 10101 )
+
+INSERT STUDENT_GUARDIAN VALUES
+    ( 102, 10101)
+
+-- connect these two to the student 10102
+INSERT STUDENT_GUARDIAN VALUES
+    ( 103, 10102 )
+
+INSERT STUDENT_GUARDIAN VALUES
+    ( 104, 10102)
+
+
+INSERT GUARDIAN_MESSAGE VALUES
+    ( 1212, 'missing hw', 101  )
+
 -- we would want both parents to be notified
 INSERT GUARDIAN_MESSAGE VALUES
-( 1212, 'missing hw', 101  )
+( 1212, 'missing hw', 102  )
+
+-- testing Detention_Trigger
+insert Detention
+values(50, 72, 10102, '11/15/20', '11/25/20', 
+'dentention 10102-Trigger', 'detention_details')
+go
+
+-- we insert a new detention row for student 10102
+-- parents 103/104 will be notified through the guaridan message
+
 
 select * from guardian_message

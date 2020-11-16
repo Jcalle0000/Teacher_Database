@@ -72,7 +72,7 @@ go
 	detention_type_code int FOREIGN KEY
 		references  Ref_Detention_Type(detention_type_code),
 	student_id int FOREIGN KEY
-		references Student(student_id),
+		references Student(student_id),				-- this should be NOT NULL
 	datetime_detention_start datetime null,
 	datetime_detention_end datetime null,
 	detention_summary varchar(50) null,
@@ -93,15 +93,20 @@ CREATE TABLE GUARDIAN (
 )
 
 	-- M:N relation
+	-- parents can have multiple student
+	-- each parent needs to get notified 
+	-- with the student's detention summary
 CREATE TABLE GUARDIAN_MESSAGE(
-	message_id		INT 	NOT NULL,
+	-- message_id		INT 	NOT NULL,
+	message_id INT IDENTITY(100,1) ,
 	message_details	VARCHAR(50),
 	guardian_id		INT		, 
 		-- This is needed to notifiy the guardian
 		
 	FOREIGN KEY (guardian_id) REFERENCES GUARDIAN(guardian_id),
-	-- 
+	-- this way a message id can be used for both guardians
 	CONSTRAINT PK_GUARDIAN_MESSAGE PRIMARY KEY(message_id, guardian_id)
+	-- gives the minimal column combination requirement
 )
 
 -- M:N Relationship
